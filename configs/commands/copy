@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 configfilescommon=(
-	~/.bashrc
-	~/.bashaliases
-	~/.vimrc
+	$HOME/.bashrc
+	$HOME/.bashaliases
+	$HOME/.vimrc
 )
 
 configfilesremote=(
-	~/.bashremote
+	$HOME/.bashremote
 )
 
 COPY_TARGET_DIR=$1
