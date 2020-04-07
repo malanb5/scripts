@@ -1,0 +1,100 @@
+# script for installing docker on ubuntu 
+# kernel: 5.3.0-45-generic
+# distribution: ubuntu_19.10_eoan
+# docker: 19.03
+
+# uninstall previous version if installed
+sudo apt-get remove docker docker-engine docker.io containerd runc
+
+# update apt
+sudo apt-get update
+
+# dependencies for https
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+
+# add docker's official GPG key
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+# verify the fingerprint
+sudo apt-key fingerprint 0EBFCD88  | grep "9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88" -B 1 -A 1 > /tmp/docker_tmp_key
+result=$(cat /tmp/docker_tmp_key)
+
+if [ ! -v "$result" ] 
+then
+	echo "$result"
+	echo "verified the fingerprint"
+else
+	echo "finger print does not match the official docker apt key finger print"
+	echo "was the command successful in the first place?"
+	exit 1
+fi
+
+# adds the repository in this case stable
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+
+# Install Docker Engine - Community
+# update again 
+sudo apt-get update
+
+# install the required packages
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+USER_NAME=$(whoami)
+
+# add the user to the docker group and logins into the docker group
+sudo usermod -aG docker $USER_NAME
+newgrp docker &
+
+
+# verify that docker is running correctly
+result=$(sudo docker run hello-world | grep "Hello from Docker!" -B 1)
+
+if [ ! -v "$result" ]
+then
+	echo "Docker is up and running"
+else
+	echo "Docker Hello world did not run successfully"
+fi
+
+check(){
+	
+	result=$(docker-compose --version)
+	if [ -v "$result" ]
+	then
+		echo "docker not installed"
+		return 1
+	else
+		echo "docker compose installed"
+		return 0
+	fi
+}
+
+# install docker-compose
+install_docker(){
+	sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+	sudo chmod +x /usr/local/bin/docker-compose
+
+}
+
+# set permissions to connect to the docker socket
+sudo chmod 666 /var/run/docker.sock
+
+# check to see if docker-compose is already installed
+check
+
+if (( $? != 0 ))
+then
+	echo "docker installing"
+	install_docker
+else
+	echo "docker installed"
+fi
+

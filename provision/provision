@@ -1,0 +1,32 @@
+# script for provisioning a cluster
+
+hosts=(
+	"127.0.0.1 adhoc-1"
+	"127.0.0.1 adhoc-2"
+	"127.0.0.1 namenode"
+	"127.0.0.1 datanode1"
+	"127.0.0.1 hiveserver"
+	"127.0.0.1 hivemetastore"
+	"127.0.0.1 kafkabroker"
+	"127.0.0.1 sparkmaster"
+	"127.0.0.1 zookeeper"
+)
+
+
+
+if [ -v "$(cat /etc/hosts | grep adhoc-1)" ]
+then
+	echo "adding hosts to /etc/hosts"
+	sudo chown malanb5 /etc/hosts
+	sudo chmod +w /etc/hosts
+	for ((i=0; i < ${#hosts[@]}; i++))
+	do
+		printf "${hosts[$i]}\n" >> /etc/hosts
+	done
+	sudo chown root /etc/hosts
+	sudo chmod -w /etc/hosts
+else
+	echo "hosts already found in file"
+fi
+
+sudo apt-get update && sudo apt-get install maven kafkacat jq
