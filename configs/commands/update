@@ -21,10 +21,8 @@ push(){
 	cd $CUR_DIR
 }
 
-echo $REPO_DIR
-echo $REPO_NAME
-echo "copying over configuration files to the local repository directory"
-.$HOME/scripts/configs/commands/copy $REPO_DIR
+echo "$0"
+$HOME/scripts/configs/commands/copy $REPO_DIR &
 echo "pull and then pushing to repo "
 pull
 push
