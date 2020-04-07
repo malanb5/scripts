@@ -1,7 +1,0 @@
-pull(){
-	echo "$1"
-
-}
-echo $PWD
-HELLO="hi"
-pull "~/"$HELLO
