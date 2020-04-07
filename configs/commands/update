@@ -22,7 +22,7 @@ push(){
 }
 
 # copy over settings to the repository folder
-COPY_TARGET_DIR="~/configs/common"
+COPY_TARGET_DIR="$HOME/configs/common"
 
 bash $HOME/scripts/configs/commands/copy $COPY_TARGET_DIR &
 echo "pull and then pushing to repo "
@@ -30,7 +30,7 @@ echo "pull and then pushing to repo "
 for i in "${GIT_REPO_NAMES[@]}";
 do
 	echo "$i"
-	pull "~/"$i
-	push "~/"$i
+	pull "HOME"$i
+	push "HOME"$i
 done
 
