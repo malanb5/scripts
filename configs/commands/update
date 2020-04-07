@@ -30,7 +30,7 @@ echo "pull and then pushing to repo "
 for i in "${GIT_REPO_NAMES[@]}";
 do
 	echo "$i"
-	pull "$HOME$i"
-	push "$HOME$i"
+	pull "$HOME/$i"
+	push "$HOME/$i"
 done
 
