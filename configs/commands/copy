@@ -15,6 +15,7 @@ COPY_TARGET_DIR=$1
 shopt -s dotglob
 
 for i in "${configfilescommon[@]}"; do
+	echo "copying $i to $COPY_TARGET_DIR"
 	cp $i $COPY_TARGET_DIR
 done
 
