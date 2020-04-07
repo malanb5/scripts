@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+CUR_DIR=~/scripts/configs/commands
+REPO_DIR=~/configs
+GIT_REPO_PREFIX=https://github.com/malanb5/
+REPO_NAME=configs
+GIT_SUFFIX=.git
+REPO_NAME="$GIT_REPO_PREFIX$REPO_NAME$GIT_SUFFIX"
+
+pull(){
+	cd $REPO_DIR
+	git pull
+	cd $CUR_DIR
+}
+
+push(){
+	cd $REPO_DIR
+	git add -A
+	git commit -m "automatic update"
+	git push
+	cd $CUR_DIR
+}
+
+echo $REPO_DIR
+echo $REPO_NAME
+echo "copying over configuration files to the local repository directory"
+.$HOME/scripts/configs/commands/copy $REPO_DIR
+echo "pull and then pushing to repo "
+pull
+push

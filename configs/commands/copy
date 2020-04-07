@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+configfilescommon=(
+	~/.bashrc
+	~/.bash_aliases
+	~/.vimrc
+)
+
+configfilesremote=(
+	~/.bash_remote
+)
+
+COPY_TARGET_DIR=$1
+
+shopt -s dotglob
+
+for i in "${configfilescommon[@]}"; do
+	echo "copying: $i"
+	cp $i $COPY_TARGET_DIR/common
+	ls -al $COPY_TARGET_DIR/common
+done
+
+shopt -u dotglob
