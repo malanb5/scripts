@@ -1,28 +1,33 @@
 #!/usr/bin/env bash
 
-CUR_DIR=~/scripts/configs/commands
-REPO_DIR=~/configs
-GIT_REPO_PREFIX=https://github.com/malanb5/
-REPO_NAME=configs
-GIT_SUFFIX=.git
-REPO_NAME="$GIT_REPO_PREFIX$REPO_NAME$GIT_SUFFIX"
+CUR_DIR="$PWD"
+
+GIT_REPO_NAMES=(
+	configs
+	scripts
+)
 
 pull(){
-	cd $REPO_DIR
+	cd $1
 	git pull
 	cd $CUR_DIR
 }
 
 push(){
-	cd $REPO_DIR
+	cd $1
 	git add -A
 	git commit -m "automatic update"
 	git push
 	cd $CUR_DIR
 }
 
-echo "$0"
-$HOME/scripts/configs/commands/copy $REPO_DIR &
+bash $HOME/scripts/configs/commands/copy $REPO_DIR &
 echo "pull and then pushing to repo "
-pull
-push
+
+for i in "${GIT_REPO_NAMES[@]}";
+do
+	echo "$i"
+	pull "~/"$i
+	push "~/"$i
+done
+
