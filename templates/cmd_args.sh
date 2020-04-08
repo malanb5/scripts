@@ -1,3 +1,38 @@
+prefix="/usr/local"
+bin="%prefix%/bin"
+base="%prefix%/lib/bazel"
+should_uncompress=true
+
+
+# here the arguments to the script are iterated over
+# the 
+for opt in "${@}"; do
+  case $opt in
+    --prefix=*)
+      prefix="$(echo "$opt" | cut -d '=' -f 2-)"
+      ;;
+    --bin=*)
+      bin="$(echo "$opt" | cut -d '=' -f 2-)"
+      ;;
+    --base=*)
+      base="$(echo "$opt" | cut -d '=' -f 2-)"
+      ;;
+    --user)
+      bin="$HOME/bin"
+      base="$HOME/.bazel"
+      ;;
+    --skip-uncompress)
+      should_uncompress=false
+      ;;
+    *)
+      usage
+      ;;
+  esac
+done
+
+
+exit 0
+
 while test $# -gt 0; do
   case "$1" in
     -h|--help)
