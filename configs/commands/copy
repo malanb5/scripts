@@ -4,6 +4,7 @@ configfilescommon=(
 	$HOME/.bashrc
 	$HOME/.bashaliases
 	$HOME/.vimrc
+	$HOME/.zshrc
 )
 
 configfilesremote=(
