@@ -1,11 +1,19 @@
+#!/bin/bash
 
+set -e
 
+# Bazel self-extractable installer
 
-hello=${1:-"Hello world"}
+# Installation and etc prefix can be overriden from command line
+install_prefix=${1:-"/usr/local"}
 
-if [ $hello -eq "" ]
-then{
-	echo "Hello world"
+echo "$install_prefix"
+
+if [ -z "${JAVA_HOME-}" ];
+then
+	echo "prefix no installed"
 else
-	echo $1
-}
+	echo "prefix installed"
+fi
+
+exit 0
