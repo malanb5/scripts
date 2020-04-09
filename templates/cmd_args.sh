@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 84d077edbafdf8908db64af13048f5fb39d34cf1
 prefix="/usr/local"
 bin="%prefix%/bin"
 base="%prefix%/lib/bazel"
@@ -6,6 +9,7 @@ should_uncompress=true
 
 
 # here the arguments to the script are iterated over
+<<<<<<< HEAD
 # the opt then is parsed by a case statement
 # the arguments matching the patter --prefix=* will
 # be matched to the case statement.  The case $opt
@@ -20,6 +24,13 @@ for opt in "${@}"; do
       echo "$opt"
       echo="$(echo "$opt" | cut -d '=' -f 2-)"
       echo $echo
+=======
+# the 
+for opt in "${@}"; do
+  case $opt in
+    --prefix=*)
+      prefix="$(echo "$opt" | cut -d '=' -f 2-)"
+>>>>>>> 84d077edbafdf8908db64af13048f5fb39d34cf1
       ;;
     --bin=*)
       bin="$(echo "$opt" | cut -d '=' -f 2-)"
@@ -40,6 +51,10 @@ for opt in "${@}"; do
   esac
 done
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 84d077edbafdf8908db64af13048f5fb39d34cf1
 exit 0
 
 while test $# -gt 0; do

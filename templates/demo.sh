@@ -3,13 +3,12 @@
 set -e
 
 # Bazel self-extractable installer
-
 # Installation and etc prefix can be overriden from command line
 install_prefix=${1:-"/usr/local"}
 
-echo "$install_prefix"
+install_prefix="safd"
 
-if [ -z "${JAVA_HOME-}" ];
+if [ -z "$install_prefix" ]
 then
 	echo "prefix no installed"
 else
